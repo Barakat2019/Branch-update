@@ -10,7 +10,10 @@ class Language extends Model
     use HasFactory;
     public $timestamp=true;
 
-    
+    public function scopeSelection($query)
+    {
+        return $query->select('abbr','locale','name','direction','created_at','updated_at');
+    }
 
     public function getDirection()
     {

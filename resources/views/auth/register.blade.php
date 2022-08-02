@@ -66,6 +66,16 @@
 
                     </div>
 
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="address" placeholder="Enter Address" :value="old('address')">
+                              @error('address')
+                                  <span class="alert alert-danger">{{ $message }}</span>
+                              @enderror
+                            </div>
+                        </div>
+                    </div>
 		      		
                     <div class="col-md-12">
                         <div class="row">

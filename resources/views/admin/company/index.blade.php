@@ -1,18 +1,8 @@
-@extends('includes.sidebar')
+@extends('layouts.admin')
+@section('content')
 @include('admin.includes.alerts.success')
 @include('admin.includes.alerts.errors')
-
-<style>
-  .table-bordered td, .table-bordered th
-  {
-    border: 0px solid #dee2e6 !important;
-  }
-  *, ::after, ::before {
-    box-sizing: unset !important;
-}
-</style>
-@section('content')
-<div class="container mt-0 " style="padding: 7rem!important; ">
+<div class="container mt-0 ">
   
   <div class="table-responsive">
     <table class="table table-hover table-striped">
@@ -23,6 +13,8 @@
           <th scope="col">Website</th>
           <th scope="col">Location</th>
           <th scope="col">Status</th>
+          <th scope="col">Created_at</th>
+          <th scope="col">Updated_at</th>
           <th scope="col" style="text-align: center">Action</th>
         </tr>
       </thead>
@@ -33,7 +25,10 @@
             <td>{{ $company->name }}</td>
             <td>{{ $company->website }}</td>
             <td>{{ $company->location }}</td>
-            <td>{{ $company->active==1?'مفعل':'غير مفعل' }}</td>
+            <td>{{ $company->getActive() }}</td>
+            <td>{{ $company->created_at }}</td>
+            <td>{{ $company->updated_at }}</td>
+            
             <td class="col d-flex justify-content-center ">
             <form>
               <a class="btn btn-success ml-1 myButton" href="{{ route('company.edit',$company->id) }}">تعديل</a>  
@@ -51,7 +46,7 @@
                 </form>
                 <form>
                   <button class="btn btn-secondary ml-1 myButton">
-                    <a  class="ml-1 p-2" style="color: white" href="">الموظفين</a>
+                    <a  class="ml-1 p-2" style="color: white" href="{{ route('company.employee',$company->id) }}">الموظفين</a>
                   </button>
                 </form>
                 
@@ -60,6 +55,7 @@
           @endforeach    
         @endisset  
       </tbody>
+      {{ $companies->links() }}
     </table>
   </div> 
 </div>

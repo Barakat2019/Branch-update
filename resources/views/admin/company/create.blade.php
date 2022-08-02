@@ -1,4 +1,3 @@
-@extends('includes.sidebar')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,40 +27,60 @@
 				<div class="row">
 					<div class="booking-form">
 						<div class="form-header">
-							<h1> Added Company</h1>
+							<h1>{{ __('messages.Added Company') }}</h1>
 						</div>
 						<form action="{{ route('company.store') }}" method="post">
                             @csrf
-							<div class="row">
-								<div class="col-sm-6">
-									<div class="form-group">
-										<span class="form-label">Name</span>
-										<input class="form-control" id="name" name="name" type="text" placeholder="Enter company name">
+							@if (get_languages()->count()>0)
+							@foreach (get_languages() as $index=>$lang)
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<span class="form-label">{{ __('messages.Name') }}-{{__('messages.'.$lang->abbr) }}</span>
+											<input class="form-control" id="name" name="company[{{ $index }}][name]" type="text" placeholder="Enter company name">
+										</div>
+										@error('company.$index.name')
+										<span class="alert alert-danger">{{$message }}</span>
+										@enderror
 									</div>
-                                    @error('name')
-                                    <span class="alert alert-danger">{{$message }}</span>
-                                      @enderror
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<span class="form-label">website</span>
-										<input class="form-control" type="text" name="website" placeholder="Like name.com or net">
+									<div class="col-md-6 hidden">
+										<label>اختصار اللغة-{{__('messages.'.$lang->abbr)}}</label>
+										<input type="text" id="translation_lang"   name="company[{{$index}}][translation_lang]" class="form-control" value="{{$lang->abbr}}">
+		
+										@error('company.$index.translation_lang')
+										<span class="text-danger">هذا الحقل مطلوب</span>
+										@enderror
 									</div>
-                                    @error('website')
-                                        <span class="alert alert-danger">{{ $message }}</span>
-                                  @enderror
+									<div class="col-sm-6">
+									<span class="form-label">{{ __('messages.Location') }}-{{__('messages.'.$lang->abbr) }}</span>
+									<input class="form-control" name="company[{{ $index }}][location]" id="location" placeholder="enter the address">
+									@error('company.$index.location')
+										<span class="alert alert-danger">{{ $message }}</span>
+									@enderror
+									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<span class="location">Location</span>
-								<input class="form-control" name="location" id="location" placeholder="enter the address">
-                                @error('location')
-                                    <span class="alert alert-danger">{{ $message }}</span>
-                                @enderror
-							</div>
+								@endforeach
+								@endif
+								<div class="row">
+
+								
+										<div class="form-group">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<span class="form-label">{{ __('messages.website') }}</span>
+													<input class="form-control" type="text" name="website" placeholder="Like name.com or net">
+												</div>
+												@error('website')
+													<span class="alert alert-danger">{{ $message }}</span>
+											@enderror
+											</div>
+											
+										</div>
+								</div>
+
 								
                                     <div class="form-btn">
-                                        <button class="submit-btn">Submit</button>
+                                        <button class="submit-btn">{{ __('messages.submit') }}</button>
                                     </div>
                                
                                 
@@ -73,4 +92,4 @@
 	</div>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
-</html>
+</html> 

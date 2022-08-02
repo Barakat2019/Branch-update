@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShipmentRequest;
+use App\Models\Company;
 use App\Models\shipment;
+use App\Models\shipment_image;
+use App\Models\shipment_type;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ShipmentController extends Controller
@@ -24,7 +29,10 @@ class ShipmentController extends Controller
      */
     public function create()
     {
-       return view('shipments.create');
+            $users=User::Select('id','name')->where('id','!=',1)->get();
+              $companies=Company::Select('id','name')->Active()->get();
+              $shipment_type=shipment_type::Select('id','name')->where('translation_of',0)->get();
+       return view('shipments.create',compact('users','companies','shipment_type'));
     }
 
     /**
@@ -33,9 +41,35 @@ class ShipmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShipmentRequest $request)
     {
-        //
+     
+      /*       
+        $files=[];
+        if($request->hasFile('images'))
+        {
+            foreach($request->file('images') as $file)
+            {
+                $name=time().'.'.$file->extension();
+                $file->move(public_path('shipments'),$name);
+                $files[]=$name;
+
+            }
+            $file=new shipment_image();
+            $file->image=$files;
+            $file->save();
+
+        } */
+        shipment::create([
+            'number'=>$request->shipment_number,
+            'user_id'=>$request->user,
+            'company_id'=>$request->company,
+            'shipment_type_id'=>$request->shipment_type,
+            'note'=>$request->note
+
+        ]);
+        
+         return redirect()->route('shipments.index')->with('success','shipment created successfully');
     }
 
     /**

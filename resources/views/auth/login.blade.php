@@ -57,7 +57,7 @@
               <div class="w-100 text-md-right forget">
                 <a href="#" style="color: #fff;">Forgot Password</a><br>
                 <!-- register company-->
-                <a href="{{ route('company.create') }}" style="color: #fff">Register Company</a>
+                <a href="{{ route('register.company') }}" style="color: #fff">Register Company</a>
                
                             
              </div>

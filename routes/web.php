@@ -40,7 +40,7 @@ Route::get('register-company',function(){
   return view('Register-company');
 })->name('register.company');
 
-Route::middleware([
+/* Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
@@ -50,6 +50,18 @@ Route::middleware([
     Route::get('company/changestatus/{id}',[CompanyController::class,'ChangeStatus'])->name('company.status');
     Route::resource('employee',EmployeeController::class);
     Route::resource('home',HomeController::class);
+}); */
+Route::resource('home',HomeController::class);
+Route::get("logout",[LogoutController::class,'flush'])->name('user.logout');
+
+/* Route::get('/admin',function(){
+   return view('layouts.admin');
+}); */
+
+Route::get('sidebar',function(){
+  return view('layouts.admin');
 });
 
-Route::get("logout",[LogoutController::class,'flush'])->name('user.logout');
+Route::get('language',function(){
+   return get_languages();
+});

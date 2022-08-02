@@ -1,6 +1,4 @@
-@extends('includes.sidebar')
-@include('admin.includes.alerts.success')
-@include('admin.includes.alerts.errors')
+@extends('layouts.admin')
 
 <style>
   .table-bordered td, .table-bordered th
@@ -12,7 +10,10 @@
 }
 </style>
 @section('content')
-<div class="container mt-0 " style="padding: 7rem!important; ">
+@include('admin.includes.alerts.success')
+@include('admin.includes.alerts.errors')
+
+<div class="container mt-0 " >
   
   <div class="table-responsive">
     <table class="table table-hover table-striped">
@@ -34,8 +35,13 @@
             <td>{{ $employee->name}}</td>
             <td>{{ $employee->phone }}</td>
             <td>{{ $employee->email }}</td>
-            <td>{{ $employee->company->name }}</td>
-            <td>{{ $employee->active==1?'مفعل':'غير مفعل' }}</td>
+              @if(isset($employee->company->name))
+              <td>{{ $employee->company->name }}</td>
+              @else
+              <td>no company</td>
+              
+            @endif
+             <td>{{ $employee->getActive() }}</td>
             <td class="col d-flex justify-content-center ">
             <form>
               <a class="btn btn-success ml-1 myButton" href="{{ route('employee.edit',$employee->id) }}">تعديل</a>  
@@ -48,7 +54,7 @@
                 </form>
                 <form>
                   <button class="btn btn-info ml-1 myButton">
-                  <a  class="ml-1 p-2" style="color: white" href="">@if($employee->active==0)تفعيل@else الغاء @endif</a>
+                  <a  class="ml-1 p-2" style="color: white" href="{{ route('employee.status',$employee->id) }}">@if($employee->active==0)تفعيل@else الغاء @endif</a>
                 </button>
                 </form>
                
@@ -58,6 +64,7 @@
           @endforeach    
         @endisset  
       </tbody>
+      {{ $employees->links() }}
     </table>
   </div> 
 </div>

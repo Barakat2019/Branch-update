@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('locale',20)->nullable();
             $table->string('name',100);
             $table->enum('direction',['ltr','rtl'])->default('rtl');
+            $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });
     }

@@ -24,16 +24,15 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required','min:5'],
-            'phone'=>['required'],
+            'employee.*.name'=>['required'],
+            'phone'=>['required_without:id'],
             'email'=>['email']
         ];
     }
     public function messages()
     {
         return [
-            'name.required'=>'Please enter name',
-            'name.min'=>'must be at least 5 character',
+            'employee.*.name.required'=>'Please enter name',
             'phone.required'=>'please fill the phone',
             'email.email'=>'invalid email'
             

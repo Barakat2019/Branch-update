@@ -24,17 +24,18 @@ class CompanyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required','max:255'],
-            'location'=>['required','max:255'],       
+            'company'=>['required','array'],
+            'company.*.name'=>['required','max:255'],
+            'company.*.location'=>['required','max:255'],       
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required'=>'Please fill the company name',
-            'name.min'=>"Name must be at least :min character",
-            'location.required'=>'Please fill the location information'
+            'company.*.name.required'=>'Please fill the company name',
+            'company.*.name.min'=>"Name must be at least :min character",
+            'company.*.required'=>'Please fill the location information'
         ];
     }
 }

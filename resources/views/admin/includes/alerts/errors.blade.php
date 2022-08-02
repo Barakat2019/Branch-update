@@ -1,3 +1,3 @@
 @if (Session::has('error'))
-<div class="alert alert-danger" style="position: relative;left: 0px;right: 700px;top:78px;width: 25%;margin: 0 auto;border-radius: 20px;"> {{Session::get('error')}}</div>
+<div class="alert alert-danger" style="position: relative;top: 0px;width: 381px;left:4px;right: 700px;margin:12px auto;text-align: center"> {{Session::get('error')}}</div>
 @endif

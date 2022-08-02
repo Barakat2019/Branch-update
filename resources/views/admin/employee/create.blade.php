@@ -1,4 +1,3 @@
-@extends('includes.sidebar')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,36 +33,48 @@
 						</div>
 						<form method="POST" action="{{ route('employee.store') }}">
 							@csrf
+							@if (get_languages()->count()>0)
+								@foreach (get_languages() as $index=>$lang)
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group">
+												<span class="form-label">Name-{{ $lang->abbr }}</span>
+												<input class="form-control" type="text" name="employee[{{ $index }}][name]" placeholder="Enter your name">
+											
+											</div>
+										</div>
+										<div class="col-md-6 hidden">
+											<label>اختصار اللغة-{{__('messages.'.$lang->abbr)}}</label>
+											<input type="text" id="translation_lang"   name="employee[{{$index}}][translation_lang]" class="form-control" value="{{$lang->abbr}}">
+			
+										
+										</div>
+										
+									</div>
+								@endforeach
+							@endif
 							<div class="row">
-								<div class="col-sm-6">
-									<div class="form-group">
-										<span class="form-label">Name</span>
-										<input class="form-control" type="text" name="name" placeholder="Enter your name">
-										@error('name')
-											<span>{{ $message }}</span>
-										@enderror
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<span class="form-label">Email</span>
-										<input class="form-control" type="email" name="email" placeholder="Enter your email">
-										@error('email')
-											<span>{{ $message }}</span>
-										@enderror
-									</div>
+								
+							
+							<div class="col-sm-6">
+								<div class="form-group">
+									<span class="form-label">Email</span>
+									<input class="form-control" type="email" name="email" placeholder="Enter your email">
+									@error('email')
+										<span>{{ $message }}</span>
+									@enderror
 								</div>
 							</div>
-							<div class="form-group">
-								<span class="form-label">Phone</span>
-								<input class="form-control" type="tel" name="phone" placeholder="00962xxxxxxxxxx">
-										@error('phone')
-											<span>{{ $message }}</span>
-										@enderror
+							<div class="col-sm-6">
+								<div class="form-group">
+									<span class="form-label">Phone</span>
+									<input class="form-control" type="tel" name="phone" placeholder="00962xxxxxxxxxx">
+											@error('phone')
+												<span>{{ $message }}</span>
+											@enderror
+								</div>
 							</div>
-							
-							
-							<div class="row">
+							 
 								<div class="col-sm-6">
 									<div class="form-group">
 										<span class="form-label">Company</span>
@@ -74,7 +85,7 @@
 										</select>
 									</div>
 								</div>
-							</div>
+							 
 							<div class="form-btn">
 								<button class="submit-btn">Submit</button>
 							</div>

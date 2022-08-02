@@ -19,7 +19,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
-            $companies = Company::get();
+           $default_lang=get_default_lang();
+            $companies=Company::with('employee')->where('translation_lang',$default_lang)->Selection()->paginate(5);
+
+            
+          
         return view('admin.company.index',compact('companies'));
     }
 
@@ -29,8 +33,7 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        
+    {  
         return view('admin.company.create');
     }
 
@@ -42,14 +45,69 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
-        $website="https://wwww.".$request->website;
-         Company::insert([
-            'name'=>$request->name,
-            'website'=>$website,
-            'location'=>$request->location,
-            'active'=>0
-        ]); 
-        return redirect()->route('company.index')->with('success','company created successfully');
+          //convert array of object return from request to collection
+
+            //use collect to make filter in request return from category and see who is the ar langauge
+       
+        $company=collect($request->company);
+
+        
+            /*
+            Filter on Arabic langage,first save the default Language in app ,
+            return depend on the language in in config>app->locale using method get_default_lang()
+            */
+        $filter=$company->filter(function($value,$key){
+            return $value['translation_lang']==get_default_lang();
+         });
+
+          //filter->all() convert object to array
+         $default_company=array_values($filter->all())[0];
+
+      $website="https://www.".$request->website;
+
+      //save the first Language arabic
+      $default_company_id=Company::insertGetId([
+        'translation_lang'=>$default_company['translation_lang'],
+        'translation_of'=>0,
+        'name'=>$default_company['name'],
+        'location'=>$default_company['location'],
+        'website'=>$website,
+        'active'=>0,
+        'created_at' => date("Y-m-d H:i:s", strtotime('now')),
+        'updated_at'=>date("Y-m-d H:i:s", strtotime('now'))
+
+
+    ]);
+
+         //Repeat the same line above for arabic ,language but here return any other Language rather than default
+         $company_other_default_lang=$company->filter(function($value,$key){
+            return $value['translation_lang']!=get_default_lang();
+        });
+
+        //check if the save categories other Languages exist and have data
+
+        if(isset($company_other_default_lang)&&$company_other_default_lang->count())
+        {
+            //create empty array,we create array and make foreach just for performance
+            $company_arr=[];
+
+            foreach($company_other_default_lang as $company)
+            {
+                $company_arr[]=[
+                    'translation_lang'=>$company['translation_lang'],
+                    'translation_of'=>$default_company_id,
+                    'name'=>$company['name'],
+                    'website'=>$website,
+                    'location'=>$company['location'],
+                    'active'=>0,
+                    'created_at' => date("Y-m-d H:i:s", strtotime('now')),
+                    'updated_at'=>date("Y-m-d H:i:s", strtotime('now'))
+                ];
+            }
+            //save the another Language
+            Company::insert($company_arr);
+        }
+        return redirect()->route('company.index')->with('success', __('messages.company created successfully'));
 
     }
 
@@ -75,8 +133,9 @@ class CompanyController extends Controller
         
         try
         {
-            $company=Company::Selection()->find($id);
+              $company=Company::with('trans_company')->Selection()->find($id);
 
+             
             if(!$company)
             {
                 return redirect()->route('company.index')->with('error','هذه الشركة غير موجودة أو ربما تكون محذوفة');
@@ -98,6 +157,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyRequest $request, $id)
     {
+         
      
         try
         {
@@ -107,7 +167,12 @@ class CompanyController extends Controller
                 return redirect()->route('company.index')->with('error','هذه الشركة غير موجودة أو ربما تكون محذوفة');
             }
 
-            Company::where('id',$id)->update($request->except('_token','_method'));
+              $first_company=array_values($request->company)[0];
+            Company::where('id',$id)->update([
+                'name'=>$first_company['name'],
+                'location'=>$first_company['location'],
+                'website'=>$request->website
+            ]);
 
             return redirect()->route('company.index')->with('success','تم تحديث معلومات الشركة بنجاح');
 
@@ -116,7 +181,7 @@ class CompanyController extends Controller
         }
         catch(Exception $ex)
         {
-            return redirect()->route('company.index')->with('error','حدث خطأ ما يرجى محاولة لاحقا');
+             return redirect()->route('company.index')->with('error','حدث خطأ ما يرجى محاولة لاحقا');
         }
         
     }
@@ -139,6 +204,8 @@ class CompanyController extends Controller
 
             }
           $Companys->delete();
+          $Companys->trans_company()->delete();
+
 
 
 
@@ -148,11 +215,7 @@ class CompanyController extends Controller
       } catch (Exception $ex)
       {
 
-          //return $ex;
-          //throw $th;
-          //DB::rollBack(); No need rollback because there is no more than one transaction in DB
-
-          return redirect()->route('vendors.index')->with('error','حدث خطأ ما برجاء المحاولة لاحقا');
+          return redirect()->route('company.index')->with('error','حدث خطأ ما برجاء المحاولة لاحقا');
       }
     }
 
@@ -179,6 +242,19 @@ class CompanyController extends Controller
         {
             return redirect()->route('company.index')->with('error','حدث خطأ ما برجاء المحاولة لاحقا');
         }
+    }
+
+    //Get employee related to this company
+    public function getCompanyEmployee($company_id)
+    {
+          //  $company=Company::with('employee')->find($company_id);
+            $employee=employee::with('company')->find($company_id);
+          
+       // return $company->employee; //return company doctors
+       return view('admin.employee.index',compact('employee'));
+
+
+
     }
 
 
