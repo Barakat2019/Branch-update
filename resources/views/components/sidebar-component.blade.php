@@ -13,15 +13,30 @@
           /* margin: 0 auto; */
           margin-left: -44px; "></a>
     <ul class="list-unstyled components mb-5">
-      <li class="active">
+      <li>
+        
+        <a href="{{ route('home.index') }}"><i class="fa fa-home"></i>&nbsp;{{ __('messages.Main Page') }}</a>
+        
+      </li>
+      <li>
         
         <a href="#shipments" data-toggle="collapse" aria-expanded="false" data-target="#shipments" class="dropdown-toggle"><i class="fa fa-truck"></i>&nbsp;{{ __('messages.Shipments') }}</a>
         <ul class="collapse list-unstyled sub-menu" id="shipments">
-        <li >
+        <li>
             <a href="{{ route('shipments.index') }}"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>
               {{ __('messages.Shipments') }}</a>
             <a href="{{ route('shipments.create') }}"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>
               {{ __('messages.Add Shipment') }}</a>
+        </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#process" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;{{ __('messages.process') }}</a>
+        <ul class="collapse list-unstyled" id="process">
+        <li>
+            <a href=""><i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+              {{ __('messages.process') }}</a>
+            
         </li>
         </ul>
       </li>
@@ -57,14 +72,15 @@
         <a href="#client" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> <i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;{{ __('messages.Clients') }}</a>
         <ul class="collapse list-unstyled" id="client">
         <li>
-            <a href="#"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+            <a href="{{ route('clients.index') }}"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>
               {{ __('messages.Clients') }}</a>
             <a href="{{ route('clients.create') }}"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>
               {{ __('messages.Add Client') }}</a>
         </li>
         </ul>
       </li>
-
+      
+{{-- 
 
       <li>
           <a href="#">About</a>
@@ -85,9 +101,9 @@
       </li>
       <li>
       <a href="#">Portfolio</a>
-      </li>
+      </li> --}}
       <li>
-        <a  href="{{ route('user.logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a  href="{{ route('user.logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>{{ __('messages.Logout') }} </a>
       </li>
     </ul>
 
@@ -97,7 +113,9 @@
 
     </div>
 </nav>
-
+@section('content')
+  <x-home-cards/>
+@endsection
 <script src="{{ asset('assets/admin/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/main.js') }}"></script>
 

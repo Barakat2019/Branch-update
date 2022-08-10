@@ -4,6 +4,7 @@ return[
     'ar'=>'باللغة العربية',
     'Added Company'=>'اضافة شركة',
     'Location'=>'العنوان',
+    'Main Page'=>'الصفحة الرئيسية',
     'website'=>'الموقع الألكتروني',
     'Name'=>'الاسم',
     'submit'=>'اضافة',
@@ -18,6 +19,7 @@ return[
     'Add Shipment'=>'أضافة شحنة',
     'company created successfully'=>'تم أضافة الشركة بنجاح',
     'Edit Company'=>'تعديل شركة',
+    'Edit Client'=>'تعديل عميل',
     'Company Name'=>'اسم الشركة',
     'website'=>'الموقع الألكتروني',
     'update'=>'تحديث',
@@ -34,7 +36,18 @@ return[
     'Select company'=>'اختر شركة',
     'Select shipment type'=>'اختر نوع الشحنة',
     'Select user'=>'اختر مستخدم',
-    'Employee Name'=>'اسم الموظف'
+    'Employee Name'=>'اسم الموظف',
+    'password'=>'كلمة السر',
+    'shipment'=>'الشحنة',
+    'password_confirmation'=>'اعادة ادخال كلمة السر',
+    'Shipment Number'=>'رقم الشحنة',
+    'Logout'=>'تسجيل الخروج',
+    'note'=>'ملاحظات',
+    'created_at'=>'تاريخ الأنشاء',
+    'updated_at'=>'تاريخ التعديل',
+    'Action'=>'الأجراءات',
+    'Status'=>'الحالة',
+    'process'=>'المرحلة'
 
 
 

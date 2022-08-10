@@ -45,7 +45,7 @@ return [
         ],
         'shipments' => [
             'driver' => 'local',
-            'root' => public_path('images/'),
+            'root' => public_path('assets/shipment_image'),
             'url' => env('APP_URL').'/public',
             'visibility' => 'public',
             'throw' => false,

@@ -14,7 +14,10 @@ class employee extends Model
      public function scopeSelection($query)
      {
        return $query->select('id','translation_lang','name','phone','email','company_id','active');
-    }
+     }
+
+    
+     
 
     //inverse relation many employee related to one company
     public function company()

@@ -41,7 +41,7 @@ class shipment_types extends Seeder
         ]);
         shipment_type::insert([
             'id'=>5,
-            'translation_lang'=>'en',
+            'translation_lang'=>'ar',
             'translation_of'=>0,
             'name'=>'جوي'
         ]);

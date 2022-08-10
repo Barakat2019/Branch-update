@@ -29,6 +29,10 @@ class User extends Authenticatable
         'password','phone','age','address'
     ];
 
+    public function scopeSelection($query)
+     {
+       return $query->select('id','shipment_id','name','email','phone','age');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -58,4 +62,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function shipments()
+    {
+        return $this->hasMany(shipment::class,'user_id');
+    }
 }

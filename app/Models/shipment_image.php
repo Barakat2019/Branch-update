@@ -9,4 +9,9 @@ class shipment_image extends Model
 {
     use HasFactory;
     protected $fillable=['image','shipment_id'];
+
+    public function shipment()
+    {
+        return $this->belongsTo(shipment::class,'shipment_id');
+    }
 }

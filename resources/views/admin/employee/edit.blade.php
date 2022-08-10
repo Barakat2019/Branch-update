@@ -155,7 +155,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                 <label for="company" class="form-label"> {{ __('messages.company') }}</label>
-                                <select name="company_id" class="form-control input-edit">
+                                <select name="company_id" class="form-control">
                                     @foreach($companies as $comp=>$index)
                                     <option value="{{ $index }}">{{ $comp }}</option>
                                     @endforeach			

@@ -6,10 +6,13 @@ use App\Http\Requests\ShipmentRequest;
 use App\Models\Company;
 use App\Models\shipment;
 use App\Models\shipment_image;
+use App\Models\shipment_process;
 use App\Models\shipment_type;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Date;
+ 
 class ShipmentController extends Controller
 {
     /**
@@ -17,9 +20,14 @@ class ShipmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('shipments.index');
+        
+          
+        $shipments=shipment::get();
+       
+        
+       return view('shipments.index',compact('shipments'));
     }
 
     /**
@@ -42,34 +50,49 @@ class ShipmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ShipmentRequest $request)
-    {
-     
-      /*       
-        $files=[];
-        if($request->hasFile('images'))
-        {
-            foreach($request->file('images') as $file)
-            {
-                $name=time().'.'.$file->extension();
-                $file->move(public_path('shipments'),$name);
-                $files[]=$name;
-
-            }
-            $file=new shipment_image();
-            $file->image=$files;
-            $file->save();
-
-        } */
-        shipment::create([
-            'number'=>$request->shipment_number,
-            'user_id'=>$request->user,
-            'company_id'=>$request->company,
-            'shipment_type_id'=>$request->shipment_type,
-            'note'=>$request->note
-
-        ]);
+    {  
+      
         
-         return redirect()->route('shipments.index')->with('success','shipment created successfully');
+        try
+        {
+
+              
+             $shipment_id=shipment::insertGetId([
+                'number'=>$request->shipment_number,
+                'user_id'=>$request->user,
+                'company_id'=>$request->company,
+                'shipment_type_id'=>$request->shipment_type,
+                'note'=>$request->note,
+                'created_at'=>date("Y-m-d H:i:s", strtotime('now')),
+                'updated_at'=>date("Y-m-d H:i:s", strtotime('now'))
+                 ]);
+    
+                /*
+                shipment type=1,2,3
+                shipment type=1 =>بري
+                2->بحري
+                3-جوي
+                */
+                 
+                
+                  shipment_process::create([
+                        'process_id'=>1,
+                        'shipment_type_id'=>$request->shipment_type,
+                        'status'=>'1',
+                        'start_time'=>Date::now(),
+                         'shipment_id'=>$shipment_id
+                    ]);
+    
+                 
+            
+             return redirect()->route('shipments.index')->with('success','shipment created successfully');  
+    
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+        
     }
 
     /**

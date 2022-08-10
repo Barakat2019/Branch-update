@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Sidebar 01</title>
+  	<title>تخليص</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -44,49 +44,8 @@
           </div>
         </nav>
         @yield('content')
-       {{--  <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-xl-3">
-                    <div class="card bg-c-blue order-card">
-                        <div class="card-block">
-                            <h6 class="m-b-20">Shipments</h6>
-                            <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
-                            <p class="m-b-0">Number of Shipment<br><span class="f-right">351</span></p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-4 col-xl-3">
-                    <div class="card bg-c-green order-card">
-                        <div class="card-block">
-                            <h6 class="m-b-20">Companies</h6>
-                            <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{ App\Models\Company::count() }}</span></h2>
-                            <p class="m-b-0">Number of Company<span class="f-right">351</span></p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-4 col-xl-3">
-                    <div class="card bg-c-yellow order-card">
-                        <div class="card-block">
-                            <h6 class="m-b-20">Employee</h6>
-                            <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>486</span></h2>
-                            <p class="m-b-0">Number of Employee<span class="f-right">351</span></p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-4 col-xl-3">
-                    <div class="card bg-c-pink order-card">
-                        <div class="card-block">
-                            <h6 class="m-b-20">Clients</h6>
-                            <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>486</span></h2>
-                            <p class="m-b-0">Number of Clients<br><span class="f-right">351</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
+        
+        
       </div>
 		</div>
 

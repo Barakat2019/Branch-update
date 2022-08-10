@@ -214,8 +214,8 @@ class CompanyController extends Controller
 
       } catch (Exception $ex)
       {
-
-          return redirect()->route('company.index')->with('error','حدث خطأ ما برجاء المحاولة لاحقا');
+        
+          return redirect()->route('company.index')->with('error','لا يمكن حذف هذه الشركة لان لديها موظفين و مرتبطة مع شحنات');
       }
     }
 
@@ -223,7 +223,8 @@ class CompanyController extends Controller
     {
         try
         {
-            $company=Company::find($id);
+            $company=Company::with('trans_company')->find($id);
+            
 
             if(!$company)
                 return redirect()->route('company.index')->with('error','هذه الشركة غير موجودة');
@@ -232,14 +233,18 @@ class CompanyController extends Controller
 
                  $active=$company->active==0?1:0;
 
+                
+
                  //update the active column in Vendors Table
                  $company->update(['active'=>$active]);
+                 
 
                  return redirect()->route('company.index')->with('success','تم تغيير حالة الشركة بنجاح');
 
         }
         catch(Exception $ex)
         {
+            return $ex;
             return redirect()->route('company.index')->with('error','حدث خطأ ما برجاء المحاولة لاحقا');
         }
     }
@@ -247,8 +252,13 @@ class CompanyController extends Controller
     //Get employee related to this company
     public function getCompanyEmployee($company_id)
     {
-          //  $company=Company::with('employee')->find($company_id);
-            $employee=employee::with('company')->find($company_id);
+            $company=Company::with('employee')->find($company_id);
+        
+           foreach($company->employee as $emp)
+           {
+              
+           }
+           
           
        // return $company->employee; //return company doctors
        return view('admin.employee.index',compact('employee'));

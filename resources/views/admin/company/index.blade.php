@@ -9,13 +9,13 @@
 
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Website</th>
-          <th scope="col">Location</th>
-          <th scope="col">Status</th>
-          <th scope="col">Created_at</th>
-          <th scope="col">Updated_at</th>
-          <th scope="col" style="text-align: center">Action</th>
+          <th scope="col">{{ __('messages.Name') }}</th>
+          <th scope="col">{{ __('messages.website') }}</th>
+          <th scope="col">{{ __('messages.Location') }}</th>
+          <th scope="col">{{ __('messages.Status') }}</th>
+          <th scope="col">{{__('messages.created_at') }}</th>
+          <th scope="col">{{ __('messages.updated_at') }}</th>
+          <th scope="col" style="text-align: center">{{ __('messages.Action') }}</th>
         </tr>
       </thead>
       <tbody>

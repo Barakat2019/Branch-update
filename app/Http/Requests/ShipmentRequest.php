@@ -24,7 +24,15 @@ class ShipmentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'shipment_number'=>['required','unique:shipments,number']
+        ];
+    }
+    
+    public function messages()
+    {
+        return [
+            'shipment_number.required'=>'Please fill the shipment number',
+            'shipment_number.unique'=>'The shipment number already exist'
         ];
     }
 }

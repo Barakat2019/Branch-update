@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ShipmentController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,9 @@ Route::middleware([
     Route::get('employee/changestatus/{id}',[EmployeeController::class,'ChangeStatus'])->name('employee.status');
     Route::resource('home',HomeController::class);
     Route::resource('clients',ClientController::class);
+    Route::resource('process',ProcessController::class);
+
+   
 
 
 

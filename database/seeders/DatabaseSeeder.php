@@ -21,8 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call([shipment_types::class]);
-
+        $this->call([ProcessSeeder::class]);
         /*
         user admin
         name="admin"

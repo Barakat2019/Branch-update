@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Booking Form HTML Template</title>
+	<title>Add Client</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
@@ -45,75 +45,98 @@
 									
 									<div class="col-sm-6">
 									<span class="form-label">{{ __('messages.Location') }}</span>
-									<input class="form-control" name="location" id="location" placeholder="enter the address">
-									@error('location')
+									<input class="form-control" name="address" id="address" placeholder="enter the address">
+									@error('address')
 										<span class="alert alert-danger">{{ $message }}</span>
 									@enderror
 									</div>
 								</div>
 								 
 								<div class="row">
-
-								
-										<div class="form-group">
+									
 											<div class="col-sm-6">
 												<div class="form-group">
 													<span class="form-label">{{ __('messages.phone') }}</span>
-													<input class="form-control" type="text" name="phone" placeholder="Like name.com or net">
+													<input class="form-control" type="text" name="phone" placeholder="Like 654654649"  onkeypress="return onlyNumberKey(event)">
 												</div>
-												@error('website')
+												@error('phone')
 													<span class="alert alert-danger">{{ $message }}</span>
 											@enderror
 											</div>	
-										</div>
-                                        <div class="form-group">
+										 
 											<div class="col-sm-6">
 												<div class="form-group">
 													<span class="form-label">{{ __('messages.email') }}</span>
-													<input class="form-control" type="text" name="email" placeholder="Like name.com or net">
+													<input class="form-control" type="text" name="email" placeholder="test@gmail.com">
 												</div>
 												@error('email')
 													<span class="alert alert-danger">{{ $message }}</span>
 											@enderror
 											</div>
 											
-										</div>
+										 
 								</div>
+
+								<div class="row">
+									
+									<div class="col-sm-6">
+										<div class="form-group">
+											<span class="form-label">{{ __('messages.password') }}</span>
+											<input class="form-control" type="password" name="password" placeholder="Enter Password">
+										</div>
+										@error('password')
+											<span class="alert alert-danger">{{ $message }}</span>
+								     	@enderror
+									</div>	
+								 
+									<div class="col-sm-6">
+										<div class="form-group">
+											<span class="form-label">{{ __('messages.password_confirmation') }}</span>
+											<input class="form-control" type="password" name="password_confirmation" placeholder="Enter Password">
+										</div>
+										@error('password_confirmation')
+											<span class="alert alert-danger">{{ $message }}</span>
+								     	@enderror
+									</div>
+									
+									
+								 
+						</div>
                                
 
 								<div class="row">
 
                                 
-                                    <div class="form-group">
+                                 
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <span class="form-label">{{ __('messages.age') }}</span>
-                                                <input class="form-control" type="text" name="age" placeholder="Like name.com or net">
+                                                <input class="form-control" type="text" name="age" onkeypress="return onlyNumberKey(event)" placeholder="Like 29 just number">
                                             </div>
                                             @error('age')
                                                 <span class="alert alert-danger">{{ $message }}</span>
                                         @enderror
                                         </div>	
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <span class="form-label">{{ __('messages.company') }}</span>
-                                                <select name="company_id" class="form-control">
-                                                    @foreach($companies as $comp=>$index)
-                                                    <option value="{{ $index }}">{{ $comp }}</option>
-                                                    @endforeach			
-                                                </select>
-                                            </div>
-                                            @error('company')
-                                                <span class="alert alert-danger">{{ $message }}</span>
-                                        @enderror
-                                        </div>	
-                                    </div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<span class="form-label">{{ __('messages.shipment') }}</span>
+												<select class="form-control" name="shipment_id" id="shipment_id">
+													@foreach ($shipment_number as $number)
+													<option value="{{ $number }}">{{ $number }}</option>
+													@endforeach
+													
+												</select>
+											</div>
+											@error('shipment')
+												<span class="alert alert-danger">{{ $message }}</span>
+											@enderror
+										</div>
+                                  
+                                     
+                                         
+                                    
 
                                 </div>
-
-								
                                     <div class="form-btn">
                                         <button class="submit-btn">{{ __('messages.submit') }}</button>
                                     </div>
@@ -125,6 +148,16 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		 function onlyNumberKey(evt) {
+          
+		  // Only ASCII character in that range allowed
+		  var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+		  if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+			  return false;
+		  return true;
+	  }
+	</script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html> 

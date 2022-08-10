@@ -26,7 +26,7 @@ class CompanyObserver
     public function updated(Company $company)
     {
         $company->employee()->update(['active'=>$company->active]);
-        
+       
     }
 
     /**
@@ -38,6 +38,7 @@ class CompanyObserver
     public function deleted(Company $company)
     {
         $company->employee()->delete();
+      
     }
 
     /**

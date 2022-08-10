@@ -55,5 +55,10 @@ class Company extends Model
         return $this->hasMany(employee::class,'company_id');
     }
 
+    //relation between shipment and company
+    public function shipment()
+    {
+        return $this->hasOne(shipment::class);
+    }
 
 }

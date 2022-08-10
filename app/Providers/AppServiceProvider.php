@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
          $default_lang=get_default_lang();
          $employees=employee::where('translation_lang',$default_lang)->Selection()->paginate(5);
-         $companies=Company::pluck('id','name'); 
+         $companies=Company::where('translation_lang',$default_lang)->pluck('id','name'); 
          View::share('employees',$employees);
          View::share('companies',$companies);
     }

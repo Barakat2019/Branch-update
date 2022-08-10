@@ -123,6 +123,9 @@ label{
           <div class="form-group" style="cursor: pointer;">
             <label for="">{{ __('messages.shipment number') }}</label>
             <input type="text" class="form-control" name="shipment_number" id="shipment_number">
+            @error('shipment_number')
+             <span class="alert alert-danger">{{ $message }}</span> 
+            @enderror
           </div>
           <div class="form-group" style="cursor: pointer;">
             <label>{{ __('messages.user') }}</label>

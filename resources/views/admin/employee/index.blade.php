@@ -20,12 +20,12 @@
 
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Phone</th>
-          <th scope="col">Email</th>
-          <th scope="col">Company</th>
-          <th scope="col">Status</th>
-          <th scope="col" style="text-align: center">Action</th>
+          <th scope="col">{{ __('messages.Name') }}</th>
+          <th scope="col">{{ __('messages.phone') }}</th>
+          <th scope="col">{{ __('messages.email') }}</th>
+          <th scope="col">{{ __('messages.company') }}</th>
+          <th scope="col">{{ __('messages.Status') }}</th>
+          <th scope="col" style="text-align: center">{{ __('messages.Action') }}</th>
         </tr>
       </thead>
       <tbody>

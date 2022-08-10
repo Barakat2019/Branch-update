@@ -14,42 +14,52 @@
 @section('content')
 @include('admin.includes.alerts.success')
 @include('admin.includes.alerts.errors')
-<div class="container mt-0 " style="padding: 7rem!important; ">
+<div class="container mt-0">
   
   <div class="table-responsive">
     <table class="table table-hover table-striped">
 
       <thead>
         <tr>
-          <th scope="col">Number</th>
-          <th scope="col">user</th>
-          <th scope="col">company</th>
-          <th scope="col">shipment type</th>
-          <th scope="col">note</th>
-          <th scope="col" style="text-align: center">Action</th>
+          <th scope="col">{{ __('messages.Shipment Number') }}</th>
+          <th scope="col">{{ __('messages.user') }}</th>
+          <th scope="col"> {{ __('messages.company') }}</th>
+          <th scope="col">{{ __('messages.Shipment Type') }}</th>
+          <th scope="col">{{ __('messages.note') }}</th>
+          <th scope="col">المرحلة</th>
+          <th scope="col">{{ __('messages.created_at') }}</th>
+          <th scope="col">{{ __('messages.updated_at') }}</th>
+          <th scope="col" style="text-align: center">{{ __('messages.Action') }}</th>
         </tr>
       </thead>
       <tbody>
        
-          <tr>
-            <td>65465465</td>
-            <td>user1</td>
-            <td>company1</td>
-            <td>shipment one</td>
-            <td>Note </td>
-            <td class="col d-flex justify-content-center ">
-            <form>
-              <a class="btn btn-success ml-1 myButton" href="">تعديل</a>  
-            </form>
-            
-              <form action="" method="post">
-                  <button class="btn btn-danger ml-1 myButton">حذف</button>
+          
+            @foreach ($shipments as $shipment)
+            <tr>
+              <td> {{ $shipment->number }}</td>
+              <td>{{ $shipment->user->name }}</td>
+              <td> {{ $shipment->company->name }} </td>
+              <td>{{ $shipment->shipment_type->name }}</td>
+              <td> {{ $shipment->note }} </td>
+              @isset($shipment->shipment_process->process_id)
+              <td>{{ $shipment->shipment_process->process_id }}</td>
+              @endisset
+              
+              <td>{{ $shipment->created_at }}</td>
+              <td>{{ $shipment->updated_at }}</td>
+              <td class="col d-flex justify-content-center ">
+                <form>
+                  <a class="btn btn-success ml-1 myButton" href="{{ route('process.index',['id'=>$shipment->id,'shipment_type'=>$shipment->shipment_type,'company_id'=>$shipment->company->id]) }}">assign process</a>  
                 </form>
-                  
-                 
                 
-            </td>
-          </tr>
+                    
+                </td>
+             </tr>
+            @endforeach
+       
+            
+         
           
       </tbody>
     </table>
