@@ -4,11 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
-class employee extends Model
+class employee extends Authenticatable
 {
     use HasFactory;
+    protected $guarded=[];
     protected $fillable=['name','phone','email','active','company_id'];
+
+    protected $hidden=['password'];
 
    // scope local to return the selected column rather thn all column
      public function scopeSelection($query)
@@ -45,5 +50,11 @@ class employee extends Model
         return $this->hasMany(self::class,'translation_of');
 
     }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password']=Hash::make($password);
+    }
+
 
 }

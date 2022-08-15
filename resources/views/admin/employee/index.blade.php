@@ -20,6 +20,7 @@
 
       <thead>
         <tr>
+  
           <th scope="col">{{ __('messages.Name') }}</th>
           <th scope="col">{{ __('messages.phone') }}</th>
           <th scope="col">{{ __('messages.email') }}</th>
@@ -32,6 +33,7 @@
         @isset($employees)
           @foreach ($employees as $employee)
           <tr>
+            <td class="d-none" >{{ $employee->id }}</td>
             <td>{{ $employee->name}}</td>
             <td>{{ $employee->phone }}</td>
             <td>{{ $employee->email }}</td>
@@ -61,10 +63,12 @@
                 
             </td>
           </tr>
+     
           @endforeach    
-        @endisset  
+        @endisset 
+       
       </tbody>
-      {{ $employees->links() }}
+     
     </table>
   </div> 
 </div>

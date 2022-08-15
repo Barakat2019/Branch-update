@@ -17,7 +17,7 @@
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
                     <h6 class="m-b-20">Shipments</h6>
-                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>490</span></h2>
                     <p class="m-b-0">Number of Shipment<br><span class="f-right">351</span></p>
                 </div>
             </div>

@@ -44,13 +44,15 @@
               <td> {{ $shipment->note }} </td>
               @isset($shipment->shipment_process->process_id)
               <td>{{ $shipment->shipment_process->process_id }}</td>
+              @else
+              <td></td>
               @endisset
               
               <td>{{ $shipment->created_at }}</td>
               <td>{{ $shipment->updated_at }}</td>
               <td class="col d-flex justify-content-center ">
                 <form>
-                  <a class="btn btn-success ml-1 myButton" href="{{ route('process.index',['id'=>$shipment->id,'shipment_type'=>$shipment->shipment_type,'company_id'=>$shipment->company->id]) }}">assign process</a>  
+                  <a class="btn btn-success ml-1 myButton" href="{{ route('process.index',['id'=>$shipment->id,'shipment_type'=>$shipment->shipment_type,'company_id'=>$shipment->company->id]) }}">{{ __('messages.assign process') }}</a>  
                 </form>
                 
                     

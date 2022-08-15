@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Company;
 use App\Models\employee;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
@@ -42,6 +45,8 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
+      
+      
         try
         {
              
@@ -51,7 +56,7 @@ class EmployeeController extends Controller
          });
 
           $default_employee=array_values($filter->all())[0];
-
+         
            $default_employee_id=employee::insertGetId([
                 'translation_lang'=>$default_employee['translation_lang'],
                 'translation_of'=>0,
@@ -63,6 +68,7 @@ class EmployeeController extends Controller
                 'created_at' => date("Y-m-d H:i:s", strtotime('now')),
                 'updated_at'=>date("Y-m-d H:i:s", strtotime('now'))
             ]);
+           
         
             //Repeat the same line above for arabic ,language but here return any other Language rather than default
                 $employee_other_default_lang=$employee->filter(function($value,$key)
@@ -91,14 +97,29 @@ class EmployeeController extends Controller
                         'updated_at'=>date("Y-m-d H:i:s", strtotime('now'))
                     ];
                 }
+               
                 //save the another Language
                 employee::insert($employee_arr);
+                
+                //save employee in users table with is_admin=2
+                User::create([
+                    'name'=>$request->employee[1]['name'],
+                    'email'=>$request->email,
+                    'password'=>bcrypt('password'),
+                    'phone'=>$request->phone,
+                    'age'=>1,
+                    'address'=>1,
+                    'is_admin'=>2
+                ]);
+              
             }
-            return redirect()->route('employee.index')->with('successs','Employee added successfully');
+            return redirect()->route('company.index')->with('success','تم أضافة الموظف بنجاح');
         }
         catch(Exception $ex)
         {
-            return redirect()->route('employee.index')->with('error','something error');
+        
+            return $ex;
+            return redirect()->route('company.index')->with('error','something error');
         }
             
     }
@@ -111,9 +132,13 @@ class EmployeeController extends Controller
      * @param  \App\Models\employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function show(employee $employee)
+    public function show(Request $request)
     {
-        //
+     
+        return $request;          
+          return  $employee_select=employee::get();
+        
+        return view('Employee.Dashboard',compact('employee_select'));
     }
 
     /**
@@ -242,6 +267,23 @@ class EmployeeController extends Controller
             return redirect()->route('employee.index')->with('error','حدث خطأ ما برجاء المحاولة لاحقا');
         }
     }
+
+    //custom the employee login page
+    public function getLoginPage()
+    {
+       
+        return view('Employee.Login');
+    }
+
+    public function HandleLogin(Request $request)
+    {
+        if(Auth::guard('employee')->attempt($request->only(['email','password'])))
+        {
+           return "email:-".$request->email."Password:-".$request->password;
+            
+        }
+    }
+
 
 
 }

@@ -59,7 +59,7 @@
           {{ __('messages.Employee') }}</a>
         <ul class="collapse list-unstyled" id="Employee">
           <li>
-              <a href="{{ route('employee.index') }}"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+              <a class="d-none" href="{{ route('employee.index') }}"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 {{ __('messages.Employee') }}</a>
               <a href="{{ route('employee.create') }}"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 {{ __('messages.Add Employee') }}</a>
@@ -79,29 +79,7 @@
         </li>
         </ul>
       </li>
-      
-{{-- 
-
-      <li>
-          <a href="#">About</a>
-      </li>
-      <li>
-      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-      <ul class="collapse list-unstyled" id="pageSubmenu">
-        <li>
-            <a href="#">Page 1</a>
-        </li>
-        <li>
-            <a href="#">Page 2</a>
-        </li>
-        <li>
-            <a href="#">Page 3</a>
-        </li>
-      </ul>
-      </li>
-      <li>
-      <a href="#">Portfolio</a>
-      </li> --}}
+ 
       <li>
         <a  href="{{ route('user.logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>{{ __('messages.Logout') }} </a>
       </li>

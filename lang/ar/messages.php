@@ -47,7 +47,8 @@ return[
     'updated_at'=>'تاريخ التعديل',
     'Action'=>'الأجراءات',
     'Status'=>'الحالة',
-    'process'=>'المرحلة'
+    'process'=>'المرحلة',
+    'assign process'=>'التعيين لموظف'
 
 
 

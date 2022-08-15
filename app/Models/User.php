@@ -26,12 +26,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password','phone','age','address'
+        'password','phone','age','address','is_admin'
     ];
 
     public function scopeSelection($query)
      {
-       return $query->select('id','shipment_id','name','email','phone','age');
+       return $query->select('id','shipment_id','password','name','email','phone','age');
     }
     /**
      * The attributes that should be hidden for serialization.
@@ -39,7 +39,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
@@ -66,5 +65,13 @@ class User extends Authenticatable
     public function shipments()
     {
         return $this->hasMany(shipment::class,'user_id');
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        if(!empty($password))
+        {
+            $this->attributes['password']=bcrypt($password);
+        }
     }
 }

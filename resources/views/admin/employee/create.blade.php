@@ -84,8 +84,8 @@
 											@endforeach			
 										</select>
 									</div>
+									<input type="hidden" name="password">
 								</div>
-							 
 							<div class="form-btn">
 								<button class="submit-btn">Submit</button>
 							</div>

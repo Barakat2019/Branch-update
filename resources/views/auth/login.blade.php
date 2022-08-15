@@ -29,8 +29,9 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
 		      	<h3 class="mb-4 text-center">Have an account?</h3>
-		      	<form action="{{ route('login') }}" method="POST" class="signin-form">
+		      	<form action="{{ route('admin.login') }}" method="POST" class="signin-form">
                     @csrf
+            
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" name="email" placeholder="Enter Email" required>
                         @error('email')
@@ -42,6 +43,13 @@
                     <input id="password-field" type="password" name="password" class="form-control" placeholder="Password" required>
                     <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                     </div>
+                    <div class="form-group">
+                        <select name="is_admin" id="is_admin" class="form-control">
+                            <option value="1">admin</option>
+                            <option value="2">employee</option>
+                            <option value="3">company</option>
+                        </select>
+                        
                     <div class="form-group">
                         <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
                     </div>

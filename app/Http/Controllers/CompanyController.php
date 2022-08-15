@@ -249,19 +249,16 @@ class CompanyController extends Controller
         }
     }
 
-    //Get employee related to this company
+    //Get employee related to this company one company Employee
     public function getCompanyEmployee($company_id)
     {
-            $company=Company::with('employee')->find($company_id);
+             $company=Company::with('employee')->find($company_id);
         
-           foreach($company->employee as $emp)
-           {
-              
-           }
+              $employees=$company->employee; 
            
-          
+           
        // return $company->employee; //return company doctors
-       return view('admin.employee.index',compact('employee'));
+       return view('admin.employee.index',compact('employees'));
 
 
 

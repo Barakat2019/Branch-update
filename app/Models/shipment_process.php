@@ -11,7 +11,7 @@ class shipment_process extends Model
 
     public $timestamps = false;
 
-    protected $fillable=['process_id','shipment_type_id','shipment_id','status','start_time'];
+    protected $fillable=['id','process_id','shipment_type_id','shipment_id','employee_id','status'];
 
     public function shipment()
     {
